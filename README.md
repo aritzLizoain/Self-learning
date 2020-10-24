@@ -1,7 +1,6 @@
 # SQL Basics
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/aritzLizoain/SQL-Basics)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/aritzLizoain/SQL-Basics)
 
 * The basics of **relational databases**. 
 * Relational Database Management System (RDBMS): **MySQL**.
