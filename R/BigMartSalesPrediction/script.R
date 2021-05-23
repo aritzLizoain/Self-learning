@@ -3,10 +3,14 @@
 # --------------------------------------------------------------------------------------------------------------
 # SETUP WORKING DIRECTORY
 # --------------------------------------------------------------------------------------------------------------
-# Check working directory: getwd()
-# Set working directory (do it only once)
-# path <- "GitHub/Self-learning/R/BigMartSalesPrediction"
-# setwd(path)
+# Set working directory
+current_path = getwd()
+path <- "GitHub/Self-learning/R/BigMartSalesPrediction"
+if (grepl(path, current_path, fixed = TRUE)){
+  print('Working directory was already set')
+} else {
+  setwd(path)
+}
 
 # --------------------------------------------------------------------------------------------------------------
 # LOAD DATA
@@ -118,11 +122,22 @@ code <- gsub("DR", "Drinks", code)
 code <- gsub("NC", "Non-Consumable", code)
 # with vectors doesn't work code <- gsub(c("FD", "DR", "NC"), c("Food", "Drinks", "Non-Consumable"), code) X
 # Add the new info with a variable name "Item_description"
-all_data$Item_description <- code
+all_data$Item_Description <- code
 
 # --------------------------------------------------------------------------------------------------------------
 # LABEL ENCODING AND ONE HOT ENCODING
 # --------------------------------------------------------------------------------------------------------------
+# Label encoding: numerically encode Item_Fat_Content levels ("Low Fat" and "Regular") to 0, 1
+all_data$Item_Fat_Content <- ifelse(all_data$Item_Fat_Content == 'Regular', 1, 0)
+
+# One Hot Encoding for Outlet_Size, Outlet_Location_Type, Outlet_Type, Item_description
+# install.packages("mltools")
+# install.packages("data.table")
+library(mltools)
+library(data.table)
+hau begiratu
+all_data <- one_hot(as.data.table(all_data))
+# More one-hot encoding options: https://datatricks.co.uk/one-hot-encoding-in-r-three-simple-methods
 
 # --------------------------------------------------------------------------------------------------------------
 # PREDICTIVE MODELING WITH MACHINE LEARNING - LINEAR REGRESSION
