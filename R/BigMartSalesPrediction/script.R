@@ -131,12 +131,11 @@ all_data$Item_Description <- code
 all_data$Item_Fat_Content <- ifelse(all_data$Item_Fat_Content == 'Regular', 1, 0)
 
 # One Hot Encoding for Outlet_Size, Outlet_Location_Type, Outlet_Type, Item_description
-# install.packages("mltools")
-# install.packages("data.table")
-library(mltools)
-library(data.table)
-hau begiratu
-all_data <- one_hot(as.data.table(all_data))
+# install.packages("caret")
+library(caret)
+features <- c("Outlet_Size", "Outlet_Location_Type", "Outlet_Type", "Item_Description") # Item_Outlet_Sales & Outlet_Year unchanged, Item_Identifier, Item_Count, Outlet_Identifier, Outlet_Count, Item_Weight, Item_Fat_Content, Item_Visibility, Item_Type, Item_MRP, Outlet_Establishment_Year unused
+dummy <- dummyVars(" ~ .", data=all_data)
+# newdata <- data.frame(predict(dummy, newdata = all_data)) 
 # More one-hot encoding options: https://datatricks.co.uk/one-hot-encoding-in-r-three-simple-methods
 
 # --------------------------------------------------------------------------------------------------------------
