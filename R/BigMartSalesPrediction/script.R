@@ -133,9 +133,10 @@ all_data$Item_Fat_Content <- ifelse(all_data$Item_Fat_Content == 'Regular', 1, 0
 # One Hot Encoding for Outlet_Size, Outlet_Location_Type, Outlet_Type, Item_description
 # install.packages("caret")
 library(caret)
-features <- c("Outlet_Size", "Outlet_Location_Type", "Outlet_Type", "Item_Description") # Item_Outlet_Sales & Outlet_Year unchanged, Item_Identifier, Item_Count, Outlet_Identifier, Outlet_Count, Item_Weight, Item_Fat_Content, Item_Visibility, Item_Type, Item_MRP, Outlet_Establishment_Year unused
-dummy <- dummyVars(" ~ .", data=all_data)
-# newdata <- data.frame(predict(dummy, newdata = all_data)) 
+useful_features <- c("Outlet_Size", "Outlet_Location_Type", "Outlet_Type", "Item_Description", "Item_Outlet_Sales", "Outlet_Year") # Item_Outlet_Sales & Outlet_Year unchanged, Item_Identifier, Item_Count, Outlet_Identifier, Outlet_Count, Item_Weight, Item_Fat_Content, Item_Visibility, Item_Type, Item_MRP, Outlet_Establishment_Year unused
+useful_data <- all_data[, useful_features]
+dummy <- dummyVars(" ~ .", data=useful_data)
+encoded_data <- data.frame(predict(dummy, newdata = useful_data)) 
 # More one-hot encoding options: https://datatricks.co.uk/one-hot-encoding-in-r-three-simple-methods
 
 # --------------------------------------------------------------------------------------------------------------
