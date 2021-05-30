@@ -130,6 +130,9 @@ all_data$Item_Description <- code
 # Label encoding: numerically encode Item_Fat_Content levels ("Low Fat" and "Regular") to 0, 1
 all_data$Item_Fat_Content <- ifelse(all_data$Item_Fat_Content == 'Regular', 1, 0)
 
+print(dim(train))
+print(dim(test))
+
 # One Hot Encoding for Outlet_Size, Outlet_Location_Type, Outlet_Type, Item_description
 # install.packages("caret")
 library(caret)
@@ -143,6 +146,10 @@ dummy <- dummyVars(" ~ .", data=useful_data)
 encoded_data <- data.frame(predict(dummy, newdata = useful_data))
 
 # More one-hot encoding options: https://datatricks.co.uk/one-hot-encoding-in-r-three-simple-methods
+
+# Divide the dataset (remember we combined train and test before) for training and testing
+new_train <- encoded_data[1:nrow(train),]
+new_test <- encoded_data[-(1:nrow(train)),]
 
 # --------------------------------------------------------------------------------------------------------------
 # PREDICTIVE MODELING WITH MACHINE LEARNING - LINEAR REGRESSION
