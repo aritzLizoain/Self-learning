@@ -38,8 +38,7 @@ summary(train)
 # --------------------------------------------------------------------------------------------------------------
 # GRAPHICAL REPRESENTATION OF VARIABLES (Bivariate analysis)
 # --------------------------------------------------------------------------------------------------------------
-# Install ggplot1
-# install.packages("tidyverse")
+# Install ggplot2
 # install.packages("ggplot2")
 # Load the library
 library(ggplot2)
@@ -152,7 +151,33 @@ new_train <- encoded_data[1:nrow(train),]
 new_test <- encoded_data[-(1:nrow(train)),]
 
 # --------------------------------------------------------------------------------------------------------------
-# PREDICTIVE MODELING WITH MACHINE LEARNING - LINEAR REGRESSION
+# PREDICTIVE MODELING WITH MACHINE LEARNING - First LINEAR (MULTIPLE) REGRESSION
+# --------------------------------------------------------------------------------------------------------------
+# Had the response variable been categorical, we would use Logistic Regression
+
+# Build out first regression model on this data set
+linear_model <- lm(Item_Outlet_Sales ~ ., data = new_train)
+
+# Adjusted R² measures the goodness of fit of a regression model. Higher the R², better is the model. 
+summary(linear_model)
+# New variables aren’t helping much i.e. Item count, Outlet Count and Item_Type_New. 
+# Neither of these variables are significant. Significant variables are denoted by ‘*’ sign.
+# In this case, significant variables: (Intercept), Outlet_Count, Item_Weight, Item_Visibility, Item_MRP, Outlet_Size.Other
+
+# Correlated predictor variables brings down the model accuracy. 
+# Find out the amount of correlation present in our predictor variables.
+cor(new_train)
+# In the long list of correlation coefficients, you can find a deadly correlation coefficient:
+cor(new_train$Outlet_Count, new_train$Outlet_Type.Grocery.Store) # Output: -0.999537
+# Outlet_Count is highly correlated (negatively) with Outlet Type Grocery Store.
+
+# Issues with this model:
+#   * There are highly correlated predictor variables
+#   * Doing one hot and label encoding was actually not necessary, since linear regression handles categorical variables by creating dummy variables intrinsically
+#   * The new variables created in feature engineering are not significant
+
+# --------------------------------------------------------------------------------------------------------------
+# Robust LINEAR (MULTIPLE) REGRESSION
 # --------------------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------------------
