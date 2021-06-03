@@ -89,6 +89,8 @@ all_data$Item_Fat_Content = revalue(all_data$Item_Fat_Content, c("LF" = "Low Fat
 # --------------------------------------------------------------------------------------------------------------
 # DATA MANIPULATION - FEATURE ENGINEERING
 # --------------------------------------------------------------------------------------------------------------
+non_engineered_data <- all_data # create it for later, section "Robust LINEAR (MULTIPLE) REGRESSION"
+
 # Install dplyr
 # install.packages("dplyr")
 # Load the library
@@ -166,6 +168,7 @@ summary(linear_model)
 
 # Correlated predictor variables brings down the model accuracy. 
 # Find out the amount of correlation present in our predictor variables.
+# (cannot be done with categorical values)
 cor(new_train)
 # In the long list of correlation coefficients, you can find a deadly correlation coefficient:
 cor(new_train$Outlet_Count, new_train$Outlet_Type.Grocery.Store) # Output: -0.999537
@@ -179,6 +182,51 @@ cor(new_train$Outlet_Count, new_train$Outlet_Type.Grocery.Store) # Output: -0.99
 # --------------------------------------------------------------------------------------------------------------
 # Robust LINEAR (MULTIPLE) REGRESSION
 # --------------------------------------------------------------------------------------------------------------
+# Perform a better fitting (for this case) feature engineering
+robust_data <- non_engineered_data
+
+# Create a new column current year - Year
+robust_data$Year <- current_year - robust_data$Outlet_Establishment_Year
+
+# Drop variables not required in modeling
+library(dplyr)
+robust_data <- select(robust_data, -c(Item_Identifier, Outlet_Identifier, Outlet_Establishment_Year))
+
+# Divide data set
+robust_train <- robust_data[1:nrow(train),]
+starting_number = nrow(train)+1
+robust_test <- robust_data[starting_number:dim(robust_data)[1],]
+
+#Linear regression
+linear_model_robust <- lm(Item_Outlet_Sales ~ ., data = robust_train)
+
+# Adjusted R² measures the goodness of fit of a regression model. Higher the R², better is the model. 
+summary(linear_model_robust) # Output: R2 (adjusted) = 0.5623. Better than before.
+
+# Check the regression plot
+par(mfrow=c(2,2)) # Multiple plots (2 rows, 2 columns)
+plot(linear_model_robust)
+# The most important story is being portrayed by Residuals vs Fitted graph.
+# Residual values are the difference between actual and predicted outcome values. 
+# Fitted values are the predicted values. If you see carefully, you’ll discover it as a funnel shape graph (from right to left ). 
+# The shape of this graph suggests that our model is suffering from heteroskedasticity (unequal variance in error terms). 
+# Had there been constant variance, there would be no pattern visible in this graph.
+
+# A common practice to tackle heteroskedasticity is by taking the log of response variable.
+linear_model_robust_log <- lm(log(Item_Outlet_Sales) ~ ., data = robust_train)
+
+# Adjusted R² measures the goodness of fit of a regression model. Higher the R², better is the model. 
+summary(linear_model_robust_log) # Output: R2 (adjusted) = 0.72. Better than before.
+
+# Check the regression plot
+par(mfrow=c(2,2)) # Multiple plots (2 rows, 2 columns)
+plot(linear_model_robust_log)
+# There is no longer a trend in residual vs fitted value plot.
+
+# Calculate RMSE (using Metrics package) to compare the different algorithms
+install.packages("Metrics")
+library(Metrics)
+rmse(robust_train$Item_Outlet_Sales, exp(linear_model_robust_log$fitted.values)) # Output: RMSE = 1140.004
 
 # --------------------------------------------------------------------------------------------------------------
 # DECISION TREES
