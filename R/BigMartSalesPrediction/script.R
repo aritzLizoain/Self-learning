@@ -232,6 +232,48 @@ rmse(robust_train$Item_Outlet_Sales, exp(linear_model_robust_log$fitted.values))
 # DECISION TREES
 # --------------------------------------------------------------------------------------------------------------
 
+decision tree algorithm: rpart 
+cross validation: caret
+complexity parameter cp 
+measures the tradeoff between model complexity and accuracy on training set
+small cp -> bigger tree -> overfitting 
+large cp -> underfitting
+find optimum cp value for model with 5 fold cross validation
+
+#loading required libraries
+> library(rpart)
+> library(e1071)
+> library(rpart.plot)
+> library(caret)
+
+#setting the tree control parameters
+> fitControl <- trainControl(method = "cv", number = 5)
+> cartGrid <- expand.grid(.cp=(1:50)*0.01)
+
+#decision tree
+> tree_model <- train(Item_Outlet_Sales ~ ., data = new_train, method = "rpart", trControl = fitControl, tuneGrid = cartGrid)
+> print(tree_model)
+
+Output: cp = 0.01
+model with cp = 0.01 has the least RMSE
+
+build tree with cp = 0.01
+
+> main_tree <- rpart(Item_Outlet_Sales ~ ., data = new_train, control = rpart.control(cp=0.01))
+> prp(main_tree)
+
+tree structure scheme
+
+this algorithm has marked Item_MRP as the most important variable (being the root node).
+
+check RMSE of model
+
+> pre_score <- predict(main_tree, type = "vector")
+> rmse(new_train$Item_Outlet_Sales, pre_score)
+[1] 1102.774
+
+better than linear regression 
+
 # --------------------------------------------------------------------------------------------------------------
 # RANDOM FOREST
 # --------------------------------------------------------------------------------------------------------------
