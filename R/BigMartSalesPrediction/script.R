@@ -231,7 +231,6 @@ rmse(robust_train$Item_Outlet_Sales, exp(linear_model_robust_log$fitted.values))
 # --------------------------------------------------------------------------------------------------------------
 # DECISION TREES
 # --------------------------------------------------------------------------------------------------------------
-
 # cp: complexity parameter, which measures the tradeoff between model complexity and accuracy on training set
 # small cp -> bigger tree -> overfitting 
 # large cp -> underfitting
@@ -265,4 +264,45 @@ rmse(robust_train$Item_Outlet_Sales, pre_score) # Output: RMSE = 1102.774. Bette
 # --------------------------------------------------------------------------------------------------------------
 # RANDOM FOREST
 # --------------------------------------------------------------------------------------------------------------
+# mtry: number of variables taken at each node to build a tree
+# ntree: number of trees to be grown in the forest
+# find optimum mtry value for model with 5 fold cross validation
 
+# Load new required libraries
+install.packages("randomForest") # random forest algorithm
+library(randomForest)
+
+# Set tuning parameters
+control <- trainControl(method = "cv", number = 5)
+
+# Random forest model
+rf_model <- train(Item_Outlet_Sales ~ ., data = robust_train, method = "parRF", trControl = control, prox = TRUE, allowParallel = TRUE)
+# method = "parRF": parallel random forest. This is parallel implementation of random forest. This causes the local machine to take less time in random forest computation. Alternatively, it is also possible to use method = "rf" as a standard random forest function
+
+# Check optimal parameters
+print(rf_model) # Output: RMSE was used to select the optimal model using the smallest value. mtry = 15
+
+# Build forest with mtry = 15 and ntree = 1000
+forest_model <- randomForest(Item_Outlet_Sales ~ ., data = robust_train, mtry = 15, ntree = 1000)
+print(forest_model)
+varImpPlot(forest_model) # Output: RMSE = 1174.33
+
+# --------------------------------------------------------------------------------------------------------------
+# TEST PREDICTIONS
+# --------------------------------------------------------------------------------------------------------------
+
+# Use the best RMSE score algorithm -> decision tree
+main_predict <- predict(main_tree, newdata = robust_test, type  ="vector")
+
+# Make the submission
+sub_file <- data.frame(Item_Identifier = test$Item_Identifier, Outlet_Identifier = test$Outlet_Identifier, Item_Outlet_Sales = main_predict)
+write.csv(sub_file, 'Decision_tree_sales.csv')
+
+# --------------------------------------------------------------------------------------------------------------
+# FURTHER IMPROVEMENTS
+# --------------------------------------------------------------------------------------------------------------
+
+#   * Use one hot encoding and label encoding for random forest 
+#   * Parameter tuning
+#   * Gradient Boosting
+#   * Ensemble Modeling
