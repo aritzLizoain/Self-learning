@@ -280,17 +280,17 @@ rf_model <- train(Item_Outlet_Sales ~ ., data = robust_train, method = "parRF", 
 # method = "parRF": parallel random forest. This is parallel implementation of random forest. This causes the local machine to take less time in random forest computation. Alternatively, it is also possible to use method = "rf" as a standard random forest function
 
 # Check optimal parameters
-print(rf_model) # Output: RMSE was used to select the optimal model using the smallest value. mtry = 15
+print(rf_model) # Output: RMSE was used to select the optimal model using the smallest value. The final value used for the model was mtry = 15.
 
 # Build forest with mtry = 15 and ntree = 1000
 forest_model <- randomForest(Item_Outlet_Sales ~ ., data = robust_train, mtry = 15, ntree = 1000)
 print(forest_model)
-varImpPlot(forest_model) # Output: RMSE = 1174.33
+varImpPlot(forest_model) 
+# RMSE = 1174.33 <- worse than decision tree and linear regression
 
 # --------------------------------------------------------------------------------------------------------------
 # TEST PREDICTIONS
 # --------------------------------------------------------------------------------------------------------------
-
 # Use the best RMSE score algorithm -> decision tree
 main_predict <- predict(main_tree, newdata = robust_test, type  ="vector")
 
@@ -301,7 +301,6 @@ write.csv(sub_file, 'Decision_tree_sales.csv')
 # --------------------------------------------------------------------------------------------------------------
 # FURTHER IMPROVEMENTS
 # --------------------------------------------------------------------------------------------------------------
-
 #   * Use one hot encoding and label encoding for random forest 
 #   * Parameter tuning
 #   * Gradient Boosting
