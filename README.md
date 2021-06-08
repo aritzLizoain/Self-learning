@@ -62,4 +62,4 @@ This repository is intended to be used for personal use, all rights reserved to 
   * Car Inventory
   * Problem Solving Templates
   
-* Followed course: [https://www.youtube.com/watch?v=Vl0H-qTclOg&list=PLdgRczjVRR3pLMjQ1OkGr1q4VUC9ZhzVA&index=2&t=3516s&ab_channel=freeCodeCamp.org](https://www.youtube.com/watch?v=Vl0H-qTclOg&list=PLdgRczjVRR3pLMjQ1OkGr1q4VUC9ZhzVA&index=2&t=3516s&ab_channel=freeCodeCamp.org).
+* Followed course: [freeCodeCamp.org](https://www.youtube.com/watch?v=Vl0H-qTclOg&list=PLdgRczjVRR3pLMjQ1OkGr1q4VUC9ZhzVA&index=2&t=3516s&ab_channel=freeCodeCamp.org).
