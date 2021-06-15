@@ -45,7 +45,7 @@ This repository is intended to be used for personal use, all rights reserved to 
   
 * Followed courses: [mikedane.com](https://www.mikedane.com/databases/sql/) & [ElitheComputerGuy](https://www.youtube.com/watch?v=7xiv3tALliQ&t=2306s&ab_channel=ElitheComputerGuy).
 
-## :bar_chart: **Tableau** (in progress...)
+## :bar_chart: **Tableau**
 
 * Tableau for Data Science and **Data Visualization**
   
