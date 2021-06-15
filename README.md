@@ -17,6 +17,8 @@ This repository is intended to be used for personal use, all rights reserved to 
   * Linear (multiple) regression
   * Decision trees
   * Random forest
+
+* Others: dataframes, visualization...
   
 ## :closed_lock_with_key: **SQL Basics**
 
@@ -42,6 +44,12 @@ This repository is intended to be used for personal use, all rights reserved to 
   * User Accounts & Privileges
   
 * Followed courses: [mikedane.com](https://www.mikedane.com/databases/sql/) & [ElitheComputerGuy](https://www.youtube.com/watch?v=7xiv3tALliQ&t=2306s&ab_channel=ElitheComputerGuy).
+
+## :bar_chart: **Tableau** (in progress...)
+
+* Tableau for Data Science and **Data Visualization**
+  
+* Followed course: [freeCodeCamp.org](https://www.youtube.com/watch?v=TPMlZxRRaBQ&list=PLdgRczjVRR3pLMjQ1OkGr1q4VUC9ZhzVA&index=3&ab_channel=freeCodeCamp.org).
 
 ## :negative_squared_cross_mark: **Excel** (in progress...)
 
