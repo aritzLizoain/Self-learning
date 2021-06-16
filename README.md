@@ -1,8 +1,8 @@
 This repository is intended to be used for personal use, all rights reserved to respective owners
 
-![GitHub last commit](https://img.shields.io/github/last-commit/aritzLizoain/SQL-Basics)
-![GitHub Repo stars](https://img.shields.io/github/stars/aritzLizoain/SQL-Basics?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/aritzLizoain/SQL-Basics?style=social)
+![GitHub last commit](https://img.shields.io/github/last-commit/aritzLizoain/Self-learning)
+![GitHub Repo stars](https://img.shields.io/github/stars/aritzLizoain/Self-learning?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/aritzLizoain/Self-learning?style=social)
 
 ## :registered::chart_with_upwards_trend: **Exploratory Data Analysis in R**
 
