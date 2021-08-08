@@ -51,7 +51,7 @@ This repository is intended to be used for personal use, all rights reserved to 
   
 * Followed course: [freeCodeCamp.org](https://www.youtube.com/watch?v=TPMlZxRRaBQ&list=PLdgRczjVRR3pLMjQ1OkGr1q4VUC9ZhzVA&index=3&ab_channel=freeCodeCamp.org).
 
-## :negative_squared_cross_mark: **Excel** (in progress...)
+## :negative_squared_cross_mark: **Excel**
 
 * The basics of **Microsoft Excel**:
   * formulas
@@ -68,6 +68,5 @@ This repository is intended to be used for personal use, all rights reserved to 
   * Decision Factors
   * Sales Database
   * Car Inventory
-  * Problem Solving Templates
   
 * Followed course: [freeCodeCamp.org](https://www.youtube.com/watch?v=Vl0H-qTclOg&list=PLdgRczjVRR3pLMjQ1OkGr1q4VUC9ZhzVA&index=2&t=3516s&ab_channel=freeCodeCamp.org).
